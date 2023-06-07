@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import com.example.to_docompose.util.Constants.LIST_SCREEN
 
 @Composable
-fun SetupNavitation(
+fun SetupNavigation(
     navControler: NavHostController
 ) {
 

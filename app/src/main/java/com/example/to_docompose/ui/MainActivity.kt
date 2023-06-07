@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.to_docompose.ui.navigation.SetupNavitation
+import com.example.to_docompose.ui.navigation.SetupNavigation
 import com.example.to_docompose.ui.theme.ToDoComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ToDoComposeTheme {
                 navControler = rememberNavController()
-                SetupNavitation(navControler = navControler)
+                SetupNavigation(navControler = navControler)
             }
         }
     }
