@@ -1,8 +1,10 @@
 package com.example.to_docompose.ui.viewmodel.list
 
+import androidx.lifecycle.viewModelScope
 import com.example.to_docompose.domain.repository.ToDoRepository
 import com.example.to_docompose.ui.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -12,7 +14,13 @@ class ListViewModel @Inject constructor(
     override fun setInitialState() = ListContract.State()
 
     override fun handleEvents(event: ListContract.Event) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            when (event) {
+                is ListContract.Event.OnFabClicked -> {
+                    setEffect { ListContract.Effect.NavigateToTaskScreen(event.taskId) }
+                }
+            }
+        }
     }
 
 }

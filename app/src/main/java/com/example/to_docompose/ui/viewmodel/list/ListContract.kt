@@ -7,14 +7,18 @@ import com.example.to_docompose.ui.viewmodel.UiState
 object ListContract {
 
     interface Event : UiEvent {
-
+        data class OnFabClicked(
+            val taskId: Int
+        ) : Event
     }
 
     interface Effect : UiEffect {
-
+        data class NavigateToTaskScreen(
+            val taskId: Int
+        ) : Effect
     }
 
     data class State(
-
+        val taskId: Int = -1
     ) : UiState
 }

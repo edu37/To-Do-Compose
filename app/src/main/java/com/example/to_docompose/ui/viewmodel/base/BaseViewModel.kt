@@ -26,8 +26,8 @@ abstract class BaseViewModel<ViewEvent : UiEvent, ViewState : UiState, ViewEffec
 
     private val initialState: ViewState by lazy { setInitialState() }
 
-    private val _viewState: MutableState<ViewState> = mutableStateOf(initialState)
-    val viewState: State<ViewState> = _viewState
+    private val _state: MutableState<ViewState> = mutableStateOf(initialState)
+    val state: State<ViewState> = _state
 
     private val _event: MutableSharedFlow<ViewEvent> = MutableSharedFlow()
 
@@ -51,8 +51,8 @@ abstract class BaseViewModel<ViewEvent : UiEvent, ViewState : UiState, ViewEffec
     }
 
     protected fun setState(reducer: ViewState.() -> ViewState) {
-        val newState = viewState.value.reducer()
-        _viewState.value = newState
+        val newState = state.value.reducer()
+        _state.value = newState
     }
 
     protected fun setEffect(builder: () -> ViewEffect) {

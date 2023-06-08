@@ -15,6 +15,6 @@ object TaskContract {
     }
 
     data class State(
-
+        val taskId: Int = -1
     ): UiState
 }

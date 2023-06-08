@@ -32,5 +32,7 @@ object DatabaseModule {
     @Provides
     fun providesDao(toDoDatabase: ToDoDatabase) = toDoDatabase.toDoDao()
 
+    @Singleton
+    @Provides
     fun providesToDoRepository(toDoDao: ToDoDao): ToDoRepository = ToDoRepositoryImpl(toDoDao)
 }
