@@ -5,13 +5,17 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 @Composable
-fun ListScreenFloatingActionButton() {
-    FloatingActionButton(onClick = { /*TODO*/ }) {
+fun ListScreenFloatingActionButton(
+    onFabClicked: (Int) -> Unit
+) {
+    FloatingActionButton(onClick = { onFabClicked.invoke(-1) }) {
         Icon(
             imageVector = Icons.Filled.Add,
-            contentDescription = "Botão para adicionar tarefas"
+            contentDescription = "Botão para adicionar tarefas",
+            tint = Color.White
         )
     }
 }

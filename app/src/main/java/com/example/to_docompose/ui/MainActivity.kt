@@ -3,10 +3,12 @@ package com.example.to_docompose.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.to_docompose.ui.navigation.SetupNavigation
 import com.example.to_docompose.ui.theme.ToDoComposeTheme
+import com.example.to_docompose.ui.viewmodel.list.ListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ToDoComposeTheme {
                 navControler = rememberNavController()
-                SetupNavigation(navControler = navControler)
+                SetupNavigation(navController = navControler)
             }
         }
     }
