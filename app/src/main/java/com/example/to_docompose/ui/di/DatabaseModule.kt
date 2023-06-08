@@ -32,6 +32,5 @@ object DatabaseModule {
     @Provides
     fun providesDao(toDoDatabase: ToDoDatabase) = toDoDatabase.toDoDao()
 
-
     fun providesToDoRepository(toDoDao: ToDoDao): ToDoRepository = ToDoRepositoryImpl(toDoDao)
 }
