@@ -9,9 +9,7 @@ import javax.inject.Inject
 class ListViewModel @Inject constructor(
     private val repository: ToDoRepository
 ) : BaseViewModel<ListContract.Event, ListContract.State, ListContract.Effect>() {
-    override fun setInitialState(): ListContract.State {
-        TODO("Not yet implemented")
-    }
+    override fun setInitialState() = ListContract.State()
 
     override fun handleEvents(event: ListContract.Event) {
         TODO("Not yet implemented")
