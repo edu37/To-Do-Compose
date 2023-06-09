@@ -10,6 +10,9 @@ object ListContract {
         data class OnFabClicked(
             val taskId: Int
         ) : Event
+
+        object OnSearchClicked: Event
+        object OnCloseSearchClicked: Event
     }
 
     interface Effect : UiEffect {
@@ -19,6 +22,7 @@ object ListContract {
     }
 
     data class State(
-        val taskId: Int = -1
+        val taskId: Int = -1,
+        val isSearching: Boolean = false
     ) : UiState
 }
