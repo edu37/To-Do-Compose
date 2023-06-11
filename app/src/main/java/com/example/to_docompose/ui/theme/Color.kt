@@ -20,10 +20,14 @@ val MediumPriorityColor = Color(0xFFE6772D)
 val HighPriorityColor = Color(0xFFEB4C46)
 val NonePriorityColor = Color(0xFFFFFFFF)
 
+val Colors.toolbarBackground: Color
+    @Composable
+    get() = if (isLight) MaterialTheme.colors.primary else DarkGray
+
 val Colors.toolbarContent: Color
     @Composable
     get() = if (isLight) Color.White else LightGray
 
-val Colors.toolbarBackground: Color
+val Colors.fabBackground: Color
     @Composable
-    get() = if (isLight) MaterialTheme.colors.primary else DarkGray
+    get() = if (isLight) Teal200 else Purple700

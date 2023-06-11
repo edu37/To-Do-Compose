@@ -30,12 +30,6 @@ fun ListScreenRoute(
         state = viewModel.state.value,
         onFabClicked = { taskId ->
             viewModel.setEvent(ListContract.Event.OnFabClicked(taskId))
-        },
-        onSearchClick = {
-            viewModel.setEvent(ListContract.Event.OnSearchClicked)
-        },
-        onCloseSearchClick = {
-            viewModel.setEvent(ListContract.Event.OnCloseSearchClicked)
         }
     )
 }

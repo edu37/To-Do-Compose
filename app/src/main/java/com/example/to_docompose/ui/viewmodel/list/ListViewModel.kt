@@ -19,12 +19,6 @@ class ListViewModel @Inject constructor(
                 is ListContract.Event.OnFabClicked -> {
                     setEffect { ListContract.Effect.NavigateToTaskScreen(event.taskId) }
                 }
-                is ListContract.Event.OnSearchClicked -> {
-                    setState { copy(isSearching = true) }
-                }
-                is ListContract.Event.OnCloseSearchClicked -> {
-                    setState { copy(isSearching = false) }
-                }
             }
         }
     }
