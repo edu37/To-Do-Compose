@@ -1,4 +1,4 @@
-package com.example.to_docompose.ui.theme
+package com.example.to_docompose.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
