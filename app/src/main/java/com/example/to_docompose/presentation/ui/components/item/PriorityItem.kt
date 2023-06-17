@@ -22,7 +22,6 @@ fun PriorityItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .padding(4.dp)
-            .background(MaterialTheme.colors.toolbarContent)
     ) {
         Canvas(modifier = Modifier.size(16.dp)) {
             drawCircle(color = priority.color)
