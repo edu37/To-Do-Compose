@@ -23,7 +23,7 @@ fun ListScreen(
             )
         }
     ) {
-        it
+
     }
 
 }

@@ -31,3 +31,7 @@ val Colors.toolbarContent: Color
 val Colors.fabBackground: Color
     @Composable
     get() = if (isLight) Teal200 else Purple700
+
+val Colors.taskTitle: Color
+    @Composable
+    get() = if (isLight) DarkGray else LightGray
