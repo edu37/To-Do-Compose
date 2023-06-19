@@ -11,7 +11,7 @@ val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
 val LightGray = Color(0xFFFCFCFC)
-val MediumGray = Color(0xFF9C9C9C)
+val MediumGray = Color(0xFF888888)
 val DarkGray = Color(0xFF1C1C1C)
 
 
@@ -32,6 +32,10 @@ val Colors.fabBackground: Color
     @Composable
     get() = if (isLight) Teal200 else Purple700
 
-val Colors.taskTitle: Color
+val Colors.taskItemTitle: Color
     @Composable
     get() = if (isLight) DarkGray else LightGray
+
+val Colors.taskItemBackground: Color
+    @Composable
+    get() = if (isLight) LightGray else DarkGray

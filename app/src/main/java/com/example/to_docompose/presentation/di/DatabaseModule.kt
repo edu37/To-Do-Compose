@@ -5,6 +5,8 @@ import androidx.room.Room
 import com.example.to_docompose.data.local.ToDoDao
 import com.example.to_docompose.data.local.ToDoDatabase
 import com.example.to_docompose.data.repository.ToDoRepositoryImpl
+import com.example.to_docompose.domain.interactor.list.ListInteractor
+import com.example.to_docompose.domain.interactor.list.ListInteractorImpl
 import com.example.to_docompose.domain.repository.ToDoRepository
 import com.example.to_docompose.util.Constants.DATABASE_NAME
 import dagger.Module
@@ -35,4 +37,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun providesToDoRepository(toDoDao: ToDoDao): ToDoRepository = ToDoRepositoryImpl(toDoDao)
+
+    @Singleton
+    @Provides
+    fun providesListInteractor(repository: ToDoRepository): ListInteractor = ListInteractorImpl(repository)
 }

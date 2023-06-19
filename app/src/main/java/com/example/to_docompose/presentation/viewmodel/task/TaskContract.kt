@@ -1,8 +1,8 @@
 package com.example.to_docompose.presentation.viewmodel.task
 
-import com.example.to_docompose.presentation.viewmodel.UiEffect
-import com.example.to_docompose.presentation.viewmodel.UiEvent
-import com.example.to_docompose.presentation.viewmodel.UiState
+import com.example.to_docompose.presentation.viewmodel.base.UiEffect
+import com.example.to_docompose.presentation.viewmodel.base.UiEvent
+import com.example.to_docompose.presentation.viewmodel.base.UiState
 
 object TaskContract {
 

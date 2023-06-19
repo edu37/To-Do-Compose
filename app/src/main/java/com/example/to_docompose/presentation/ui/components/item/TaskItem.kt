@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.sp
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.presentation.ui.theme.MediumGray
-import com.example.to_docompose.presentation.ui.theme.taskTitle
+import com.example.to_docompose.presentation.ui.theme.taskItemBackground
+import com.example.to_docompose.presentation.ui.theme.taskItemTitle
 
 @Composable
 fun TaskItem(
@@ -31,16 +32,17 @@ fun TaskItem(
     onTaskClicked: (Int) -> Unit
 ) {
     val subtitleColor = MediumGray
-    val titleColor = MaterialTheme.colors.taskTitle
+    val titleColor = MaterialTheme.colors.taskItemTitle
+    val backgroundColor = MaterialTheme.colors.taskItemBackground
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.surface)
-            .padding(8.dp)
-            .clickable { onTaskClicked(toDoTask.id) }
+            .background(backgroundColor)
+            .clickable { onTaskClicked(toDoTask.id) },
+
     ) {
-        Column {
+        Column(modifier = Modifier.padding(8.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween

@@ -2,7 +2,7 @@ package com.example.to_docompose.presentation.viewmodel.list
 
 import androidx.lifecycle.viewModelScope
 import com.example.to_docompose.domain.repository.ToDoRepository
-import com.example.to_docompose.presentation.viewmodel.BaseViewModel
+import com.example.to_docompose.presentation.viewmodel.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,8 +19,16 @@ class ListViewModel @Inject constructor(
                 is ListContract.Event.OnFabClicked -> {
                     setEffect { ListContract.Effect.NavigateToTaskScreen(event.taskId) }
                 }
+
+                is ListContract.Event.GetAllTasks -> {
+                    getAllTasks()
+                }
             }
         }
+    }
+
+    private suspend fun getAllTasks() {
+        TODO("Not yet implemented")
     }
 
 }

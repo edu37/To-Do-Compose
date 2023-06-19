@@ -1,6 +1,6 @@
 package com.example.to_docompose.presentation.viewmodel.task
 
-import com.example.to_docompose.presentation.viewmodel.BaseViewModel
+import com.example.to_docompose.presentation.viewmodel.base.BaseViewModel
 
 class TaskViewModel : BaseViewModel<TaskContract.Event, TaskContract.State, TaskContract.Effect>() {
     override fun setInitialState() = TaskContract.State()

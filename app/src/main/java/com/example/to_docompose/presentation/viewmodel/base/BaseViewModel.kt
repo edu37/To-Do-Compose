@@ -1,4 +1,4 @@
-package com.example.to_docompose.presentation.viewmodel
+package com.example.to_docompose.presentation.viewmodel.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
