@@ -7,22 +7,35 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,29 +46,41 @@ import com.example.to_docompose.presentation.ui.components.toolbar.Const.EMPTY_S
 import com.example.to_docompose.presentation.ui.theme.Typography
 import com.example.to_docompose.presentation.ui.theme.toolbarBackground
 import com.example.to_docompose.presentation.ui.theme.toolbarContent
+import com.example.to_docompose.presentation.viewmodel.list.ListContract
 
 @Composable
-fun ListScreenTopBar() {
+fun ListScreenTopBar(
+    handleEvent: (ListContract.Event) -> Unit
+) {
     val isSearching = rememberSaveable { mutableStateOf(false) }
 
     if (isSearching.value) {
         SearchAppBar(
-            onSearchClick = {},
-            onCloseSearchClick = { isSearching.value = false }
+            onSearch = { input ->
+                handleEvent(ListContract.Event.SearchTasks(input))
+            },
+            onCloseSearchClick = {
+                isSearching.value = false
+                handleEvent(ListContract.Event.GetAllTasks)
+            }
         )
     } else {
         DefaultAppBar(
-            onSearchClick = { isSearching.value = true },
-            onFilterListClick = {},
-            onDeleteAllTasksClicked = {}
+            onSearchClicked = { isSearching.value = true },
+            onFilterListClicked = { priority ->
+                handleEvent(ListContract.Event.OrderTasksByPriority(priority))
+            },
+            onDeleteAllTasksClicked = {
+                handleEvent(ListContract.Event.DeleteAllTasks)
+            }
         )
     }
 }
 
 @Composable
 fun DefaultAppBar(
-    onSearchClick: () -> Unit,
-    onFilterListClick: (Priority) -> Unit,
+    onSearchClicked: () -> Unit,
+    onFilterListClicked: (Priority) -> Unit,
     onDeleteAllTasksClicked: () -> Unit
 ) {
     val toolbarContentColor = MaterialTheme.colors.toolbarContent
@@ -68,14 +93,11 @@ fun DefaultAppBar(
             )
         },
         backgroundColor = toolbarBackgrounColor, actions = {
-            SearchAction(onSearchClick)
-            Spacer(modifier = Modifier.width(8.dp))
+            SearchAction(onSearchClicked)
 
-            FilterAction(onFilterListClick)
-            Spacer(modifier = Modifier.width(8.dp))
+            FilterAction(onFilterListClicked)
 
             MoreOptionsAction(onDeleteAllTasksClicked)
-            Spacer(modifier = Modifier.width(8.dp))
         },
         modifier = Modifier.clip(
             RoundedCornerShape(bottomStartPercent = 5, bottomEndPercent = 5)
@@ -162,20 +184,24 @@ fun MoreOptionsAction(
 @Composable
 fun SearchAppBar(
     onCloseSearchClick: () -> Unit,
-    onSearchClick: (String) -> Unit,
+    onSearch: (String) -> Unit,
 ) {
     val toolbarContentColor = MaterialTheme.colors.toolbarContent
     val toolbarBackgrounColor = MaterialTheme.colors.toolbarBackground
     val transparentColor = Color.Transparent
 
     val inputText = rememberSaveable { mutableStateOf(EMPTY_STRING) }
+    val focusRequest = FocusRequester()
+    LaunchedEffect(Unit) {
+        focusRequest.requestFocus()
+    }
 
     TopAppBar(
         title = {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = { onSearchClick(inputText.value) }) {
+                IconButton(onClick = { onSearch(inputText.value) }) {
                     Icon(
                         imageVector = Icons.Filled.Search,
                         contentDescription = null,
@@ -184,6 +210,7 @@ fun SearchAppBar(
                     )
                 }
                 TextField(
+                    modifier = Modifier.focusRequester(focusRequest),
                     value = inputText.value,
                     onValueChange = {
                         inputText.value = it
@@ -201,10 +228,11 @@ fun SearchAppBar(
                     ),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
+                        capitalization = KeyboardCapitalization.Sentences,
                         imeAction = ImeAction.Search
                     ),
                     keyboardActions = KeyboardActions(onSearch = {
-                        onSearchClick(inputText.value)
+                        onSearch(inputText.value)
                     }),
                     colors = TextFieldDefaults.textFieldColors(
                         cursorColor = toolbarContentColor,

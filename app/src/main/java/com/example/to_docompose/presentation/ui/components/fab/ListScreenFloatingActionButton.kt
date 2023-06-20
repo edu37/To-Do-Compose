@@ -11,10 +11,10 @@ import com.example.to_docompose.presentation.ui.theme.fabBackground
 
 @Composable
 fun ListScreenFloatingActionButton(
-    onFabClicked: (Int) -> Unit
+    onFabClicked: () -> Unit
 ) {
     FloatingActionButton(
-        onClick = { onFabClicked.invoke(-1) },
+        onClick = { onFabClicked.invoke() },
         backgroundColor = MaterialTheme.colors.fabBackground
     ) {
         Icon(

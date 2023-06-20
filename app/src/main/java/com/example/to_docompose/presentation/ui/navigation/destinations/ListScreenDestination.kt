@@ -17,9 +17,8 @@ fun ListScreenDestination(
         navController = navController,
         state = viewModel.state.collectAsState().value,
         effect = viewModel.effect,
-        sendEvent = { event ->
+        handleEvent = { event ->
             viewModel.handleEvents(event)
         }
     )
-
 }

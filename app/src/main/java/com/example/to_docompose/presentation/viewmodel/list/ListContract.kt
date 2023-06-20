@@ -1,15 +1,29 @@
 package com.example.to_docompose.presentation.viewmodel.list
 
+import com.example.to_docompose.data.models.Priority
+import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.presentation.viewmodel.base.UiEffect
 import com.example.to_docompose.presentation.viewmodel.base.UiEvent
 import com.example.to_docompose.presentation.viewmodel.base.UiState
 
 object ListContract {
     interface Event : UiEvent {
-        data class OnFabClicked(
+        data class OnTaskClicked(
             val taskId: Int
         ) : Event
-        object GetAllTasks: Event
+
+        object OnFabClicked : Event
+
+        object GetAllTasks : Event
+        data class SearchTasks(
+            val input: String
+        ) : Event
+
+        data class OrderTasksByPriority(
+            val priority: Priority
+        ) : Event
+
+        object DeleteAllTasks : Event
     }
 
     interface Effect : UiEffect {
@@ -19,6 +33,7 @@ object ListContract {
     }
 
     data class State(
-        val taskId: Int = -1
+        val taskList: List<ToDoTask> = listOf(),
+        val isLoading: Boolean = true
     ) : UiState
 }
