@@ -16,16 +16,16 @@ fun TaskScreenRoute(
 
     LaunchedEffect(Unit) {
         effect.collect { effect ->
-            when(effect) {
-
+            when (effect) {
+                is Contract.Effect.NavigateToListScreen -> {
+                    navController.navigate("list/${effect.action}")
+                }
             }
         }
     }
 
     TaskScreen(
-        state = state,
-        onClick = {
-//            sendEvent()
-        }
+        toDoTask = state.toDoTask,
+        sendEvent = sendEvent
     )
 }

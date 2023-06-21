@@ -199,7 +199,7 @@ fun SearchAppBar(
     TopAppBar(
         title = {
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(onClick = { onSearch(inputText.value) }) {
                     Icon(
