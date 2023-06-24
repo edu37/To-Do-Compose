@@ -8,11 +8,14 @@ import com.example.to_docompose.presentation.viewmodel.task.TaskContract as Cont
 
 @Composable
 fun TaskScreenRoute(
+    isNewTask: Boolean,
     navController: NavHostController,
     state: Contract.State,
     effect: Flow<Contract.Effect>,
     sendEvent: (Contract.Event) -> Unit,
 ) {
+    val task = state.toDoTask
+    if (!isNewTask) sendEvent(Contract.Event.GetTask(task.id))
 
     LaunchedEffect(Unit) {
         effect.collect { effect ->
@@ -25,7 +28,8 @@ fun TaskScreenRoute(
     }
 
     TaskScreen(
-        toDoTask = state.toDoTask,
+        isNewTask = isNewTask,
+        toDoTask = task,
         sendEvent = sendEvent
     )
 }

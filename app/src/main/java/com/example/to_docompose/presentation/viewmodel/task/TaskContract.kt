@@ -10,7 +10,9 @@ import com.example.to_docompose.util.Action
 object TaskContract {
 
     interface Event : UiEvent {
-
+        data class GetTask(
+            val taskId: Int
+        ) : Event
     }
 
     interface Effect : UiEffect {
@@ -20,6 +22,19 @@ object TaskContract {
     }
 
     data class State(
-        val toDoTask: ToDoTask = ToDoTask(0, "", "", Priority.NONE)
-    ) : UiState
+        val toDoTask: ToDoTask = ToDoTask(
+            DEFAULT_ID,
+            DEFAULT_TITLE,
+            DEFAULT_DESCRIPTION,
+            DEFAULT_PRIORITY
+        )
+    ) : UiState {
+
+        private companion object {
+            const val DEFAULT_ID = -1
+            const val DEFAULT_TITLE = ""
+            const val DEFAULT_DESCRIPTION = ""
+            val DEFAULT_PRIORITY = Priority.NONE
+        }
+    }
 }

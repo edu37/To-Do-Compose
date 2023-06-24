@@ -6,6 +6,10 @@ class TaskViewModel : BaseViewModel<TaskContract.Event, TaskContract.State, Task
     override fun setInitialState() = TaskContract.State()
 
     override fun handleEvents(event: TaskContract.Event) {
-        TODO("Not yet implemented")
+        when (event) {
+            is TaskContract.Event.GetTask -> {
+
+            }
+        }
     }
 }

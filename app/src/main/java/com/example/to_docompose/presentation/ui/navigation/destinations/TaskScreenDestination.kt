@@ -9,11 +9,13 @@ import com.example.to_docompose.presentation.viewmodel.task.TaskViewModel
 
 @Composable
 fun TaskScreenDestination(
-    navController: NavHostController
+    navController: NavHostController,
+    taskId: Int
 ) {
     val viewModel = hiltViewModel<TaskViewModel>()
 
     TaskScreenRoute(
+        isNewTask = taskId == -1,
         navController = navController,
         state = viewModel.state.collectAsState().value,
         effect = viewModel.effect,

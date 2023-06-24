@@ -8,13 +8,15 @@ import androidx.navigation.navArgument
 import com.example.to_docompose.presentation.ui.navigation.destinations.ListScreenDestination
 import com.example.to_docompose.presentation.ui.navigation.destinations.TaskScreenDestination
 import com.example.to_docompose.util.Constants
+import com.example.to_docompose.util.Constants.LIST_ARGUMENT
+import com.example.to_docompose.util.Constants.TASK_ARGUMENT
 
 fun NavGraphBuilder.listComposable(
     navController: NavHostController
 ) {
     composable(
         route = Constants.LIST_SCREEN,
-        arguments = listOf(navArgument(Constants.LIST_ARGUMENT) {
+        arguments = listOf(navArgument(LIST_ARGUMENT) {
             type = NavType.StringType
         })
     ) {
@@ -29,10 +31,15 @@ fun NavGraphBuilder.taskComposable(
 ) {
     composable(
         route = Constants.TASK_SCREEN,
-        arguments = listOf(navArgument(Constants.TASK_ARGUMENT) {
+        arguments = listOf(navArgument(TASK_ARGUMENT) {
             type = NavType.IntType
         })
     ) {
-        TaskScreenDestination(navController = navController)
+        val taskId = it.arguments!!.getInt(TASK_ARGUMENT)
+
+        TaskScreenDestination(
+            navController = navController,
+            taskId = taskId
+        )
     }
 }

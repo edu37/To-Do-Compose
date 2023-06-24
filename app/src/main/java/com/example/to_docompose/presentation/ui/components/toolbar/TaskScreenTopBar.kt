@@ -1,6 +1,5 @@
 package com.example.to_docompose.presentation.ui.components.toolbar
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -9,9 +8,10 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.to_docompose.data.models.Priority
@@ -23,11 +23,10 @@ import com.example.to_docompose.presentation.viewmodel.task.TaskContract as Cont
 
 @Composable
 fun TaskScreenTopBar(
-    taskId: Int,
+    isNewTask: Boolean,
     toDoTask: ToDoTask? = null,
     sendEvent: (Contract.Event) -> Unit
 ) {
-    val isNewTask = taskId == -1
 
     if (isNewTask) {
         CreateTaskTopBar(
@@ -61,16 +60,16 @@ fun CreateTaskTopBar(
     TopAppBar(
         backgroundColor = backgroundColor,
         contentColor = contentColor,
-        title = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onBackArrowClicked) {
-                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = null)
-                }
-                Text(
-                    text = "New Task",
-                    fontSize = 16.sp
-                )
+        navigationIcon = {
+            IconButton(onClick = onBackArrowClicked) {
+                Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = null)
             }
+        },
+        title = {
+            Text(
+                text = "New Task",
+                fontSize = 16.sp
+            )
         },
         actions = {
             ConfirmAction(onConfirmClicked)
@@ -105,15 +104,17 @@ fun EditTaskTopBar(
     TopAppBar(
         backgroundColor = backgroundColor,
         contentColor = contentColor,
-        title = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onBackArrowClicked) {
-                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = null)
-                }
+        navigationIcon = {
+            IconButton(onClick = onBackArrowClicked) {
+                Icon(imageVector = Icons.Filled.Close, contentDescription = null)
             }
+        },
+        title = {
             Text(
                 text = toDoTask.title,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         },
         actions = {
