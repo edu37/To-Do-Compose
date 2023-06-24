@@ -18,7 +18,7 @@ fun ListScreenDestination(
         state = viewModel.state.collectAsState().value,
         effect = viewModel.effect,
         handleEvent = { event ->
-            viewModel.handleEvents(event)
+            viewModel.setEvent(event)
         }
     )
 }

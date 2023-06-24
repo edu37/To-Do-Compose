@@ -7,9 +7,16 @@ import kotlinx.coroutines.flow.Flow
 class TaskInteractorImpl(
     private val repository: ToDoRepository
 ) : TaskInteractor {
+    override suspend fun addTask(toDoTask: ToDoTask) {
+        return repository.addTask(toDoTask)
+    }
 
     override fun getSelectedTask(taskId: Int): Flow<ToDoTask> {
         return repository.getSelectedTask(taskId)
+    }
+
+    override suspend fun deleteTask(toDoTask: ToDoTask) {
+        return repository.deleteTask(toDoTask)
     }
 
 }

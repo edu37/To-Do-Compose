@@ -15,12 +15,12 @@ fun TaskScreenDestination(
     val viewModel = hiltViewModel<TaskViewModel>()
 
     TaskScreenRoute(
-        isNewTask = taskId == -1,
+        taskId = taskId,
         navController = navController,
         state = viewModel.state.collectAsState().value,
         effect = viewModel.effect,
         sendEvent = { event ->
-            viewModel.handleEvents(event)
+            viewModel.setEvent(event)
         }
     )
 }

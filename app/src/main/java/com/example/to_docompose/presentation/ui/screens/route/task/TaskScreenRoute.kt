@@ -8,28 +8,26 @@ import com.example.to_docompose.presentation.viewmodel.task.TaskContract as Cont
 
 @Composable
 fun TaskScreenRoute(
-    isNewTask: Boolean,
+    taskId: Int,
     navController: NavHostController,
     state: Contract.State,
     effect: Flow<Contract.Effect>,
     sendEvent: (Contract.Event) -> Unit,
 ) {
-    val task = state.toDoTask
-    if (!isNewTask) sendEvent(Contract.Event.GetTask(task.id))
+    sendEvent(Contract.Event.GetTask(taskId = taskId))
 
     LaunchedEffect(Unit) {
         effect.collect { effect ->
             when (effect) {
                 is Contract.Effect.NavigateToListScreen -> {
-                    navController.navigate("list/${effect.action}")
+                    navController.popBackStack()
                 }
             }
         }
     }
 
     TaskScreen(
-        isNewTask = isNewTask,
-        toDoTask = task,
+        toDoTask = state.toDoTask,
         sendEvent = sendEvent
     )
 }

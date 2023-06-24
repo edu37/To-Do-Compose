@@ -5,5 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface TaskInteractor {
 
+    suspend fun addTask(toDoTask: ToDoTask)
     fun getSelectedTask(taskId: Int): Flow<ToDoTask>
+
+    suspend fun deleteTask(toDoTask: ToDoTask)
 }
