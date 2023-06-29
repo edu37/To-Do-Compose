@@ -60,14 +60,40 @@ class ActivityTest {
             }
         }
     }
+
     @Test
     fun testDeleteAll() {
         with(composeTestRule) {
             onNodeWithTag(TestTags.MORE_OPTIONS_TOOLBAR).performClick()
-            onNodeWithTag(TestTags.DELETE_ALL_MORE_OPTIONS).performClick()
+            onNodeWithTag(TestTags.DELETE_ALL_MORE_OPTION).performClick()
             onNodeWithTag(TestTags.EMPTY_LIST).assertIsDisplayed()
         }
     }
 
+    @Test
+    fun testDeleteSelectedTask() {
+        runBlocking {
+            val job = async { dao.getAllTasksRealTime().first() }
+            val list = job.await()
+            val listSize = list.size
+            val taskId = list.firstOrNull()?.id ?: 0
 
+            with(composeTestRule) {
+                onNodeWithTag(TestTags.taskItem(taskId)).performClick()
+                onNodeWithTag(TestTags.TASK_SCREEN).assertIsDisplayed()
+                onNodeWithTag(TestTags.DELETE_TASK_TOOLBAR_OPTION).performClick()
+                if (listSize > 1) {
+                    onNodeWithTag(TestTags.TASK_LIST).assertIsDisplayed()
+                    onNodeWithTag(TestTags.taskItem(taskId)).assertDoesNotExist()
+                } else {
+                    onNodeWithTag(TestTags.EMPTY_LIST).assertIsDisplayed()
+                }
+            }
+        }
+    }
+
+    @Test
+    fun testAddTask() {
+        //TODO
+    }
 }

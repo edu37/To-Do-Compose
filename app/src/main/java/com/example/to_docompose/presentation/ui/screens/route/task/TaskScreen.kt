@@ -14,12 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.presentation.ui.components.item.PriorityItem
 import com.example.to_docompose.presentation.ui.components.toolbar.TaskScreenTopBar
+import com.example.to_docompose.util.TestTags
 import com.example.to_docompose.presentation.viewmodel.task.TaskContract as Contract
 
 const val EMPTY_STRING = ""
@@ -55,7 +57,8 @@ fun TaskScreen(
                     sendEvent(Contract.Event.UpdateTask(task))
                 },
             )
-        }
+        },
+        modifier = Modifier.testTag(TestTags.TASK_SCREEN)
     ) {
         Column(
             modifier = Modifier

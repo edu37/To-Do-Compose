@@ -14,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,6 +26,7 @@ import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.presentation.ui.theme.MediumGray
 import com.example.to_docompose.presentation.ui.theme.taskItemBackground
 import com.example.to_docompose.presentation.ui.theme.taskItemTitle
+import com.example.to_docompose.util.TestTags
 
 @Composable
 fun TaskItem(
@@ -39,8 +41,8 @@ fun TaskItem(
         modifier = Modifier
             .fillMaxWidth()
             .background(backgroundColor)
-            .clickable { onTaskClicked(toDoTask.id) },
-
+            .clickable { onTaskClicked(toDoTask.id) }
+            .testTag(TestTags.taskItem(toDoTask.id))
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
             Row(

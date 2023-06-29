@@ -50,7 +50,8 @@ fun ListScreen(
             ListScreenFloatingActionButton(
                 onFabClicked = { sendEvent(Contract.Event.OnFabClicked) }
             )
-        }
+        },
+        modifier = Modifier.testTag(TestTags.LIST_SCREEN)
     ) { scaffoldPadding ->
         if (!isLoading) {
             if (taskList.isEmpty()) {
@@ -147,7 +148,7 @@ fun ListScreenPreview() {
                 0,
                 "Teste",
                 "This is a description text test thas is been used on Preview to see if this string is working the way it should. Ellipsis should be able to see now",
-                Priority.HIGH
+                Priority.LOW
             )
         ),
         isLoading = false,

@@ -177,7 +177,7 @@ fun MoreOptionsAction(
         DropdownMenu(expanded = expanded.value, onDismissRequest = { dismissMenuItem() }) {
             DropdownMenuItem(
                 onClick = { dismissMenuItem(action = onDeleteAllTasksClicked) },
-                modifier = Modifier.testTag(TestTags.DELETE_ALL_MORE_OPTIONS)
+                modifier = Modifier.testTag(TestTags.DELETE_ALL_MORE_OPTION)
             ) {
                 Text(
                     text = "Delete all", style = Typography.subtitle2

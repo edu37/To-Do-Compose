@@ -1,12 +1,18 @@
 package com.example.to_docompose.presentation.ui.components.toolbar
 
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,6 +22,7 @@ import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.presentation.ui.theme.toolbarBackground
 import com.example.to_docompose.presentation.ui.theme.toolbarContent
+import com.example.to_docompose.util.TestTags
 import com.example.to_docompose.presentation.viewmodel.task.TaskContract as Contract
 
 @Composable
@@ -116,7 +123,10 @@ fun EditTaskTopBar(
         backgroundColor = backgroundColor,
         contentColor = contentColor,
         navigationIcon = {
-            IconButton(onClick = onCloseArrowClicked) {
+            IconButton(
+                onClick = onCloseArrowClicked,
+                modifier = Modifier.testTag(TestTags.ARROW_BACK)
+            ) {
                 Icon(imageVector = Icons.Filled.Close, contentDescription = null)
             }
         },
@@ -145,7 +155,10 @@ fun DeleteAction(
     onDeleteClicked: (ToDoTask) -> Unit
 ) {
     val contentColor = MaterialTheme.colors.toolbarContent
-    IconButton(onClick = { onDeleteClicked(toDoTask) }) {
+    IconButton(
+        onClick = { onDeleteClicked(toDoTask) },
+        modifier = Modifier.testTag(TestTags.DELETE_TASK_TOOLBAR_OPTION)
+    ) {
         Icon(
             imageVector = Icons.Filled.Delete,
             contentDescription = null,
