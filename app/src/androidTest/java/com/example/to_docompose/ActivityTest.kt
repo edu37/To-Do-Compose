@@ -3,9 +3,11 @@ package com.example.to_docompose
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import com.example.to_docompose.data.local.ToDoDao
 import com.example.to_docompose.data.local.ToDoDatabase
 import com.example.to_docompose.presentation.MainActivity
+import com.example.to_docompose.util.TestTags
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.async
@@ -50,12 +52,20 @@ class ActivityTest {
             val listSize = job.await().size
 
             val layoutTag = if (listSize == 0) {
-                "EmptyListLayoutTestTag"
-            } else "TaskListLayoutTestTag"
+                TestTags.EMPTY_LIST
+            } else TestTags.TASK_LIST
 
             with(composeTestRule) {
                 onNodeWithTag(layoutTag).assertIsDisplayed()
             }
+        }
+    }
+    @Test
+    fun testDeleteAll() {
+        with(composeTestRule) {
+            onNodeWithTag(TestTags.MORE_OPTIONS_TOOLBAR).performClick()
+            onNodeWithTag(TestTags.DELETE_ALL_MORE_OPTIONS).performClick()
+            onNodeWithTag(TestTags.EMPTY_LIST).assertIsDisplayed()
         }
     }
 

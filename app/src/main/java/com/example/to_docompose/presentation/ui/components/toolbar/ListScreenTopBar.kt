@@ -7,7 +7,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoreVert
@@ -23,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -38,6 +48,7 @@ import com.example.to_docompose.presentation.ui.theme.Typography
 import com.example.to_docompose.presentation.ui.theme.toolbarBackground
 import com.example.to_docompose.presentation.ui.theme.toolbarContent
 import com.example.to_docompose.presentation.viewmodel.list.ListContract
+import com.example.to_docompose.util.TestTags
 
 @Composable
 fun ListScreenTopBar(
@@ -153,7 +164,10 @@ fun MoreOptionsAction(
         action.invoke()
     }
 
-    IconButton(onClick = { expanded.value = true }) {
+    IconButton(
+        onClick = { expanded.value = true },
+        modifier = Modifier.testTag(TestTags.MORE_OPTIONS_TOOLBAR)
+    ) {
         Icon(
             imageVector = Icons.Filled.MoreVert,
             contentDescription = null,
@@ -162,7 +176,8 @@ fun MoreOptionsAction(
         )
         DropdownMenu(expanded = expanded.value, onDismissRequest = { dismissMenuItem() }) {
             DropdownMenuItem(
-                onClick = { dismissMenuItem(action = onDeleteAllTasksClicked) }
+                onClick = { dismissMenuItem(action = onDeleteAllTasksClicked) },
+                modifier = Modifier.testTag(TestTags.DELETE_ALL_MORE_OPTIONS)
             ) {
                 Text(
                     text = "Delete all", style = Typography.subtitle2

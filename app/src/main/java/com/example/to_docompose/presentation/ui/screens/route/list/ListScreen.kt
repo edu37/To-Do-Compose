@@ -30,6 +30,7 @@ import com.example.to_docompose.presentation.ui.components.fab.ListScreenFloatin
 import com.example.to_docompose.presentation.ui.components.item.TaskItem
 import com.example.to_docompose.presentation.ui.components.toolbar.ListScreenTopBar
 import com.example.to_docompose.presentation.ui.theme.MediumGray
+import com.example.to_docompose.util.TestTags
 import com.example.to_docompose.presentation.viewmodel.list.ListContract as Contract
 
 @Composable
@@ -89,7 +90,7 @@ fun TaskList(
             .fillMaxWidth()
             .padding(16.dp)
             .padding(scaffoldPadding)
-            .testTag("TaskListLayoutTestTag")
+            .testTag(TestTags.TASK_LIST)
     ) {
         taskList.forEach { task ->
             item {
@@ -112,7 +113,7 @@ fun EmptyTaskList(
         modifier = Modifier
             .fillMaxSize()
             .padding(scaffoldPadding)
-            .testTag("EmptyListLayoutTestTag"),
+            .testTag(TestTags.EMPTY_LIST),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
