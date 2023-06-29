@@ -108,11 +108,10 @@ class ActivityTest {
             with(composeTestRule) {
                 onNodeWithTag(TestTags.FAB_BUTTON).performClick()
                 onNodeWithTag(TestTags.TASK_SCREEN).assertIsDisplayed()
-                onNodeWithTag(TestTags.TITLE_TEXT).performClick()
-                onNodeWithTag(TestTags.TITLE_TEXT).performTextInput(testTitle)
+                onNodeWithTag(TestTags.TITLE_TEXT).performClick().performTextInput(testTitle)
                 onNodeWithTag(TestTags.DROP_DOWN_MENU_PRIORITY).performClick()
                 onNodeWithTag(TestTags.DROP_DOWN_ITEM_HIGH).performClick()
-                onNodeWithTag(TestTags.DESCRIPTION_TEXT).performTextInput(testDescription)
+                onNodeWithTag(TestTags.DESCRIPTION_TEXT).performClick().performTextInput(testDescription)
                 onNodeWithTag(TestTags.CONFIRM_TASK_ICON).performClick()
                 onNodeWithTag(TestTags.LIST_SCREEN).assertIsDisplayed()
 
