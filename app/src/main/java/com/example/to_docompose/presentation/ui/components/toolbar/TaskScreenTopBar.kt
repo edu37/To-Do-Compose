@@ -30,17 +30,15 @@ fun TaskScreenTopBar(
     toDoTask: ToDoTask?,
     onGoBackScreen: () -> Unit,
     onDeleteClicked: (ToDoTask) -> Unit,
-    onCreateTask: (ToDoTask) -> Unit,
-    onUpdateClicked: (ToDoTask) -> Unit,
+    onCreateTask: () -> Unit,
+    onUpdateClicked: () -> Unit,
 ) {
 
     if (toDoTask == null) {
         CreateTaskTopBar(
             toDoTask = toDoTask,
             onBackArrowClicked = onGoBackScreen,
-            onCreateTask = { task ->
-                onCreateTask(task)
-            }
+            onCreateTask = onCreateTask
         )
     } else {
         EditTaskTopBar(
@@ -49,9 +47,7 @@ fun TaskScreenTopBar(
             onDeleteClicked = { task ->
                 onDeleteClicked(task)
             },
-            onUpdateClicked = { task ->
-                onUpdateClicked(task)
-            }
+            onUpdateClicked = onUpdateClicked
         )
 
     }
@@ -61,7 +57,7 @@ fun TaskScreenTopBar(
 fun CreateTaskTopBar(
     toDoTask: ToDoTask?,
     onBackArrowClicked: () -> Unit,
-    onCreateTask: (ToDoTask) -> Unit
+    onCreateTask: () -> Unit
 ) {
     val backgroundColor = MaterialTheme.colors.toolbarBackground
     val contentColor = MaterialTheme.colors.toolbarContent
@@ -92,14 +88,12 @@ fun CreateTaskTopBar(
 @Composable
 fun ConfirmAction(
     toDoTask: ToDoTask?,
-    onConfirmClicked: (ToDoTask) -> Unit,
+    onConfirmClicked: () -> Unit,
 ) {
     val contentColor = MaterialTheme.colors.toolbarContent
     IconButton(
         onClick = {
-            toDoTask?.let { task ->
-                onConfirmClicked(task)
-            }
+            onConfirmClicked()
         }) {
         Icon(
             imageVector = Icons.Filled.Check,
@@ -113,7 +107,7 @@ fun ConfirmAction(
 fun EditTaskTopBar(
     toDoTask: ToDoTask,
     onCloseArrowClicked: () -> Unit,
-    onUpdateClicked: (ToDoTask) -> Unit,
+    onUpdateClicked: () -> Unit,
     onDeleteClicked: (ToDoTask) -> Unit
 ) {
     val backgroundColor = MaterialTheme.colors.toolbarBackground
