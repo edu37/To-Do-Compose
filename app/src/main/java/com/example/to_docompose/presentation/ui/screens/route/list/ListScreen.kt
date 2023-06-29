@@ -16,6 +16,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -88,6 +89,7 @@ fun TaskList(
             .fillMaxWidth()
             .padding(16.dp)
             .padding(scaffoldPadding)
+            .testTag("TaskListLayoutTestTag")
     ) {
         taskList.forEach { task ->
             item {
@@ -109,7 +111,8 @@ fun EmptyTaskList(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(scaffoldPadding),
+            .padding(scaffoldPadding)
+            .testTag("EmptyListLayoutTestTag"),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

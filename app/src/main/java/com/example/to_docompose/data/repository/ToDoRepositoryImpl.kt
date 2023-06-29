@@ -11,7 +11,7 @@ class ToDoRepositoryImpl @Inject constructor(
 
     override fun getSelectedTask(taskId: Int) = toDoDao.getSelectedTask(taskId)
 
-    override fun getAllTasks() = toDoDao.getAllTasks()
+    override fun getAllTasks() = toDoDao.getAllTasksRealTime()
 
     override fun searchDatabase(searchQuery: String) = toDoDao.searchDatabase(searchQuery)
 

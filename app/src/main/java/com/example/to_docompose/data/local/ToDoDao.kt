@@ -1,5 +1,6 @@
 package com.example.to_docompose.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.to_docompose.data.models.ToDoTask
 import kotlinx.coroutines.flow.Flow
@@ -8,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface ToDoDao {
 
     @Query("SELECT * FROM todo_table ORDER BY id ASC")
-    fun getAllTasks(): Flow<List<ToDoTask>>
+    fun getAllTasksRealTime(): Flow<List<ToDoTask>>
 
     @Query("SELECT * FROM todo_table WHERE id=:taskId")
     fun getSelectedTask(taskId: Int): Flow<ToDoTask>
