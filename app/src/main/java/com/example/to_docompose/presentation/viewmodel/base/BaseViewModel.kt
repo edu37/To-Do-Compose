@@ -25,6 +25,9 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState, ViewEffect : UiEf
 
     abstract fun handleEvents(event: Event)
 
+    val currentState: State
+        get() = state.value
+
     private val _state: MutableStateFlow<State> = MutableStateFlow(initialState)
     val state: StateFlow<State> = _state
 

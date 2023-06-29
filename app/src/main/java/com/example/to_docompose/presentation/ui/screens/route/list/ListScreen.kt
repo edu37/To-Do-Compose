@@ -35,18 +35,18 @@ import com.example.to_docompose.presentation.viewmodel.list.ListContract as Cont
 fun ListScreen(
     taskList: List<ToDoTask>,
     isLoading: Boolean,
-    handleEvent: (Contract.Event) -> Unit
+    sendEvent: (Contract.Event) -> Unit
 ) {
 
     Scaffold(
         topBar = {
             ListScreenTopBar(
-                handleEvent = handleEvent
+                sendEvent = sendEvent
             )
         },
         floatingActionButton = {
             ListScreenFloatingActionButton(
-                onFabClicked = { handleEvent(Contract.Event.OnFabClicked) }
+                onFabClicked = { sendEvent(Contract.Event.OnFabClicked) }
             )
         }
     ) { scaffoldPadding ->
@@ -58,7 +58,7 @@ fun ListScreen(
                     taskList = taskList,
                     scaffoldPadding = scaffoldPadding,
                     onTaskClicked = { taskId ->
-                        handleEvent(Contract.Event.OnTaskClicked(taskId))
+                        sendEvent(Contract.Event.OnTaskClicked(taskId))
                     }
                 )
             }
@@ -147,7 +147,7 @@ fun ListScreenPreview() {
             )
         ),
         isLoading = false,
-        handleEvent = {}
+        sendEvent = {}
     )
 }
 
@@ -157,6 +157,6 @@ fun EmptyListScreenPreview() {
     ListScreen(
         taskList = emptyList(),
         isLoading = false,
-        handleEvent = {}
+        sendEvent = {}
     )
 }

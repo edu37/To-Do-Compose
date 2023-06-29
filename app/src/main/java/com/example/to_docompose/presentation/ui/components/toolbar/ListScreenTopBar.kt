@@ -7,16 +7,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoreVert
@@ -50,28 +41,28 @@ import com.example.to_docompose.presentation.viewmodel.list.ListContract
 
 @Composable
 fun ListScreenTopBar(
-    handleEvent: (ListContract.Event) -> Unit
+    sendEvent: (ListContract.Event) -> Unit
 ) {
     val isSearching = rememberSaveable { mutableStateOf(false) }
 
     if (isSearching.value) {
         SearchAppBar(
             onSearch = { input ->
-                handleEvent(ListContract.Event.SearchTasks(input))
+                sendEvent(ListContract.Event.SearchTasks(input))
             },
             onCloseSearchClick = {
                 isSearching.value = false
-                handleEvent(ListContract.Event.GetAllTasks)
+                sendEvent(ListContract.Event.GetAllTasks)
             }
         )
     } else {
         DefaultAppBar(
             onSearchClicked = { isSearching.value = true },
             onFilterListClicked = { priority ->
-                handleEvent(ListContract.Event.OrderTasksByPriority(priority))
+                sendEvent(ListContract.Event.OrderTasksByPriority(priority))
             },
             onDeleteAllTasksClicked = {
-                handleEvent(ListContract.Event.DeleteAllTasks)
+                sendEvent(ListContract.Event.DeleteAllTasks)
             }
         )
     }

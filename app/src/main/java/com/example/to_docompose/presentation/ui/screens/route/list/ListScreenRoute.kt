@@ -12,10 +12,10 @@ fun ListScreenRoute(
     navController: NavHostController,
     state: Contract.State,
     effect: Flow<Contract.Effect>,
-    handleEvent: (Contract.Event) -> Unit,
+    sendEvent: (Contract.Event) -> Unit,
 ) {
     LaunchedEffect(key1 = true) {
-        handleEvent(Contract.Event.GetAllTasks)
+        sendEvent(Contract.Event.GetAllTasks)
     }
 
     LaunchedEffect(Unit) {
@@ -31,6 +31,6 @@ fun ListScreenRoute(
     ListScreen(
         taskList = state.taskList,
         isLoading = state.isLoading,
-        handleEvent = handleEvent
+        sendEvent = sendEvent
     )
 }

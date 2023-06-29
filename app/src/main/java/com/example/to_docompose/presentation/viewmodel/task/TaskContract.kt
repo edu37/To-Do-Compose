@@ -17,6 +17,14 @@ object TaskContract {
         ) : Event
 
         object GoBackScreen : Event
+
+        data class AddTask(
+            val toDoTask: ToDoTask
+        ) : Event
+
+        data class UpdateTask(
+            val toDoTask: ToDoTask
+        ) : Event
     }
 
     interface Effect : UiEffect {

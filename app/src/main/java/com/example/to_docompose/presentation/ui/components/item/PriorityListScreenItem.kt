@@ -1,7 +1,6 @@
 package com.example.to_docompose.presentation.ui.components.item
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -12,7 +11,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.presentation.ui.theme.Typography
-import com.example.to_docompose.presentation.ui.theme.toolbarContent
 
 @Composable
 fun PriorityItem(

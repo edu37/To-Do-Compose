@@ -23,15 +23,16 @@ fun TaskScreenTopBar(
     toDoTask: ToDoTask?,
     onGoBackScreen: () -> Unit,
     onDeleteClicked: (ToDoTask) -> Unit,
-    onConfirmClicked: (ToDoTask) -> Unit,
+    onCreateTask: (ToDoTask) -> Unit,
+    onUpdateClicked: (ToDoTask) -> Unit,
 ) {
 
     if (toDoTask == null) {
         CreateTaskTopBar(
             toDoTask = toDoTask,
             onBackArrowClicked = onGoBackScreen,
-            onConfirmClicked = { task ->
-                onConfirmClicked(task)
+            onCreateTask = { task ->
+                onCreateTask(task)
             }
         )
     } else {
@@ -41,8 +42,8 @@ fun TaskScreenTopBar(
             onDeleteClicked = { task ->
                 onDeleteClicked(task)
             },
-            onConfirmClicked = { task ->
-                onConfirmClicked(task)
+            onUpdateClicked = { task ->
+                onUpdateClicked(task)
             }
         )
 
@@ -53,7 +54,7 @@ fun TaskScreenTopBar(
 fun CreateTaskTopBar(
     toDoTask: ToDoTask?,
     onBackArrowClicked: () -> Unit,
-    onConfirmClicked: (ToDoTask) -> Unit
+    onCreateTask: (ToDoTask) -> Unit
 ) {
     val backgroundColor = MaterialTheme.colors.toolbarBackground
     val contentColor = MaterialTheme.colors.toolbarContent
@@ -73,7 +74,10 @@ fun CreateTaskTopBar(
             )
         },
         actions = {
-            ConfirmAction(toDoTask, onConfirmClicked)
+            ConfirmAction(
+                toDoTask = toDoTask,
+                onConfirmClicked = onCreateTask
+            )
         }
     )
 }
@@ -84,7 +88,12 @@ fun ConfirmAction(
     onConfirmClicked: (ToDoTask) -> Unit,
 ) {
     val contentColor = MaterialTheme.colors.toolbarContent
-    IconButton(onClick = { toDoTask?.let(onConfirmClicked) }) {
+    IconButton(
+        onClick = {
+            toDoTask?.let { task ->
+                onConfirmClicked(task)
+            }
+        }) {
         Icon(
             imageVector = Icons.Filled.Check,
             contentDescription = null,
@@ -97,7 +106,7 @@ fun ConfirmAction(
 fun EditTaskTopBar(
     toDoTask: ToDoTask,
     onCloseArrowClicked: () -> Unit,
-    onConfirmClicked: (ToDoTask) -> Unit,
+    onUpdateClicked: (ToDoTask) -> Unit,
     onDeleteClicked: (ToDoTask) -> Unit
 ) {
     val backgroundColor = MaterialTheme.colors.toolbarBackground
@@ -122,7 +131,10 @@ fun EditTaskTopBar(
         actions = {
             DeleteAction(toDoTask, onDeleteClicked)
 
-            ConfirmAction(toDoTask, onConfirmClicked)
+            ConfirmAction(
+                toDoTask = toDoTask,
+                onConfirmClicked = onUpdateClicked
+            )
         }
     )
 }
@@ -145,10 +157,7 @@ fun DeleteAction(
 @Preview
 @Composable
 private fun CreateTaskTopBarPreview() {
-    CreateTaskTopBar(
-        Contract.State().toDoTask,
-        {},
-        {})
+    CreateTaskTopBar(Contract.State().toDoTask, {}, { })
 }
 
 @Preview
