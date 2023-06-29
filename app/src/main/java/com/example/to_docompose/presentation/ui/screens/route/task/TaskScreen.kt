@@ -104,7 +104,9 @@ fun TaskScreen(
                 .padding(it)
         ) {
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(TestTags.TITLE_TEXT),
                 value = title,
                 onValueChange = { input ->
                     title = input
@@ -123,7 +125,9 @@ fun TaskScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .testTag(TestTags.DESCRIPTION_TEXT),
                 value = description,
                 onValueChange = { input ->
                     description = input
@@ -133,9 +137,7 @@ fun TaskScreen(
                 }
             )
         }
-
     }
-
 }
 
 @Composable
@@ -159,6 +161,7 @@ fun PriorityDropDown(
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxWidth()
+            .testTag(TestTags.DROP_DOWN_MENU_PRIORITY)
     ) {
         val width = this.maxWidth
         Row(
@@ -198,22 +201,31 @@ fun PriorityDropDown(
                 modifier = Modifier
                     .width(width)
             ) {
-                DropdownMenuItem(onClick = {
-                    dismissMenuItem()
-                    onPrioritySelected(Priority.LOW)
-                }) {
+                DropdownMenuItem(
+                    onClick = {
+                        dismissMenuItem()
+                        onPrioritySelected(Priority.LOW)
+                    },
+                    modifier = Modifier.testTag(TestTags.DROP_DOWN_ITEM_LOW)
+                ) {
                     PriorityItem(priority = Priority.LOW)
                 }
-                DropdownMenuItem(onClick = {
-                    dismissMenuItem()
-                    onPrioritySelected(Priority.MEDIUM)
-                }) {
+                DropdownMenuItem(
+                    onClick = {
+                        dismissMenuItem()
+                        onPrioritySelected(Priority.MEDIUM)
+                    },
+                    modifier = Modifier.testTag(TestTags.DROP_DOWN_ITEM_MEDIUM)
+                ) {
                     PriorityItem(priority = Priority.MEDIUM)
                 }
-                DropdownMenuItem(onClick = {
-                    dismissMenuItem()
-                    onPrioritySelected(Priority.HIGH)
-                }) {
+                DropdownMenuItem(
+                    onClick = {
+                        dismissMenuItem()
+                        onPrioritySelected(Priority.HIGH)
+                    },
+                    modifier = Modifier.testTag(TestTags.DROP_DOWN_ITEM_HIGH)
+                ) {
                     PriorityItem(priority = Priority.HIGH)
                 }
             }

@@ -23,7 +23,6 @@ import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.presentation.ui.theme.toolbarBackground
 import com.example.to_docompose.presentation.ui.theme.toolbarContent
 import com.example.to_docompose.util.TestTags
-import com.example.to_docompose.presentation.viewmodel.task.TaskContract as Contract
 
 @Composable
 fun TaskScreenTopBar(
@@ -36,7 +35,6 @@ fun TaskScreenTopBar(
 
     if (toDoTask == null) {
         CreateTaskTopBar(
-            toDoTask = toDoTask,
             onBackArrowClicked = onGoBackScreen,
             onCreateTask = onCreateTask
         )
@@ -55,7 +53,6 @@ fun TaskScreenTopBar(
 
 @Composable
 fun CreateTaskTopBar(
-    toDoTask: ToDoTask?,
     onBackArrowClicked: () -> Unit,
     onCreateTask: () -> Unit
 ) {
@@ -78,7 +75,6 @@ fun CreateTaskTopBar(
         },
         actions = {
             ConfirmAction(
-                toDoTask = toDoTask,
                 onConfirmClicked = onCreateTask
             )
         }
@@ -87,14 +83,15 @@ fun CreateTaskTopBar(
 
 @Composable
 fun ConfirmAction(
-    toDoTask: ToDoTask?,
     onConfirmClicked: () -> Unit,
 ) {
     val contentColor = MaterialTheme.colors.toolbarContent
     IconButton(
         onClick = {
             onConfirmClicked()
-        }) {
+        },
+        modifier = Modifier.testTag(TestTags.CONFIRM_TASK_ICON)
+    ) {
         Icon(
             imageVector = Icons.Filled.Check,
             contentDescription = null,
@@ -119,7 +116,7 @@ fun EditTaskTopBar(
         navigationIcon = {
             IconButton(
                 onClick = onCloseArrowClicked,
-                modifier = Modifier.testTag(TestTags.ARROW_BACK)
+                modifier = Modifier.testTag(TestTags.ARROW_BACK_ICON)
             ) {
                 Icon(imageVector = Icons.Filled.Close, contentDescription = null)
             }
@@ -136,7 +133,6 @@ fun EditTaskTopBar(
             DeleteAction(toDoTask, onDeleteClicked)
 
             ConfirmAction(
-                toDoTask = toDoTask,
                 onConfirmClicked = onUpdateClicked
             )
         }
@@ -164,7 +160,7 @@ fun DeleteAction(
 @Preview
 @Composable
 private fun CreateTaskTopBarPreview() {
-    CreateTaskTopBar(Contract.State().toDoTask, {}, { })
+    CreateTaskTopBar({}, { })
 }
 
 @Preview

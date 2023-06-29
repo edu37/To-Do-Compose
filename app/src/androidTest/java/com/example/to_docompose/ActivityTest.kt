@@ -4,8 +4,10 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import com.example.to_docompose.data.local.ToDoDao
 import com.example.to_docompose.data.local.ToDoDatabase
+import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.presentation.MainActivity
 import com.example.to_docompose.util.TestTags
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -94,6 +96,40 @@ class ActivityTest {
 
     @Test
     fun testAddTask() {
-        //TODO
+        runBlocking {
+            val job = async { dao.getAllTasksRealTime().first() }
+            val list = job.await()
+            val listSize = list.size
+
+            val testTitle = "Reunião"
+            val testDescription = "1:1 com o TechLead no final da tarde do dia 30/06/2023"
+            val testPriority = Priority.HIGH
+
+            with(composeTestRule) {
+                onNodeWithTag(TestTags.FAB_BUTTON).performClick()
+                onNodeWithTag(TestTags.TASK_SCREEN).assertIsDisplayed()
+                onNodeWithTag(TestTags.TITLE_TEXT).performClick()
+                onNodeWithTag(TestTags.TITLE_TEXT).performTextInput(testTitle)
+                onNodeWithTag(TestTags.DROP_DOWN_MENU_PRIORITY).performClick()
+                onNodeWithTag(TestTags.DROP_DOWN_ITEM_HIGH).performClick()
+                onNodeWithTag(TestTags.DESCRIPTION_TEXT).performTextInput(testDescription)
+                onNodeWithTag(TestTags.CONFIRM_TASK_ICON).performClick()
+                onNodeWithTag(TestTags.LIST_SCREEN).assertIsDisplayed()
+
+                val newJob = async { dao.getAllTasksRealTime().first() }
+                val newList = newJob.await()
+                val newListSize = newList.size
+
+                assert(newListSize == listSize + 1)
+
+                val addedTask = newList.first {
+                    it.description == testDescription &&
+                            it.title == testTitle &&
+                            it.priority == testPriority
+                }
+
+                onNodeWithTag(TestTags.taskItem(addedTask.id)).assertExists()
+            }
+        }
     }
 }
