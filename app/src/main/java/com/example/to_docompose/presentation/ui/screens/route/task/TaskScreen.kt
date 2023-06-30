@@ -46,6 +46,7 @@ import com.example.to_docompose.util.TestTags
 import com.example.to_docompose.presentation.viewmodel.task.TaskContract as Contract
 
 const val EMPTY_STRING = ""
+const val TITLE_MAX_LENGTH = 20
 
 @Composable
 fun TaskScreen(
@@ -109,13 +110,15 @@ fun TaskScreen(
                     .testTag(TestTags.TITLE_TEXT),
                 value = title,
                 onValueChange = { input ->
-                    title = input
+                    if (input.length <= TITLE_MAX_LENGTH)
+                        title = input
                 },
                 label = {
                     Text(text = "Title")
                 },
-                singleLine = true
-            )
+                singleLine = true,
+
+                )
             Spacer(modifier = Modifier.height(16.dp))
             PriorityDropDown(
                 priority = priority,
