@@ -6,6 +6,7 @@ import com.example.to_docompose.domain.interactor.task.TaskInteractor
 import com.example.to_docompose.domain.interactor.task.TaskInteractorImpl
 import com.example.to_docompose.domain.repository.ToDoRepository
 import com.example.to_docompose.domain.usecase.GetListByPriorityUseCase
+import com.example.to_docompose.domain.usecase.ValidateTaskFieldsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +29,6 @@ object InteractorModule {
     @Provides
     fun providesTaskInteractor(
         repository: ToDoRepository,
-    ): TaskInteractor = TaskInteractorImpl(repository)
+        validateTaskFieldsUseCase: ValidateTaskFieldsUseCase
+    ): TaskInteractor = TaskInteractorImpl(repository, validateTaskFieldsUseCase)
 }

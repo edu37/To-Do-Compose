@@ -1,7 +1,6 @@
 package com.example.to_docompose.domain.interactor.task
 
 import com.example.to_docompose.data.models.ToDoTask
-import com.example.to_docompose.domain.interactor.list.ListInteractorResult
 
 sealed interface TaskInteractorResult {
 
@@ -9,5 +8,10 @@ sealed interface TaskInteractorResult {
         val task: ToDoTask
     ) : TaskInteractorResult
 
-    object Error : TaskInteractorResult
+    object AddTaskSuccessfully : TaskInteractorResult
+    object DeleteTaskSuccessfully : TaskInteractorResult
+
+    object GenericError : TaskInteractorResult
+
+    object InvalidFieldError : TaskInteractorResult
 }

@@ -52,14 +52,27 @@ class TaskViewModel @Inject constructor(
                         )
                     }
                 }
-                is TaskInteractorResult.Error -> {}
+                is TaskInteractorResult.GenericError -> {
+
+                }
+                else -> {}
             }
         }
     }
 
     private suspend fun addTask(toDoTask: ToDoTask) {
-        interactor.addTask(toDoTask)
-        goBackScreen()
+        when (interactor.addTask(toDoTask)) {
+            is TaskInteractorResult.AddTaskSuccessfully -> {
+                goBackScreen()
+            }
+            is TaskInteractorResult.InvalidFieldError -> {
+
+            }
+            is TaskInteractorResult.GenericError -> {
+
+            }
+            else -> {}
+        }
     }
 
     private suspend fun updateTask(toDoTask: ToDoTask) {
