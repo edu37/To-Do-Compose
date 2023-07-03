@@ -7,6 +7,6 @@ interface TaskInteractor {
 
     fun getSelectedTask(taskId: Int): Flow<TaskInteractorResult>
     suspend fun addTask(toDoTask: ToDoTask): TaskInteractorResult
-    suspend fun updateTask(toDoTask: ToDoTask)
-    suspend fun deleteTask(toDoTask: ToDoTask)
+    suspend fun updateTask(toDoTask: ToDoTask): TaskInteractorResult
+    suspend fun deleteTask(toDoTask: ToDoTask): TaskInteractorResult
 }

@@ -40,22 +40,29 @@ class TaskInteractorImpl(
     }
 
     //TODO "Modificar o retorno para ficar padronizado como o de adicionar e pegar tasks"
-    override suspend fun updateTask(toDoTask: ToDoTask) {
-        runCatching {
+    override suspend fun updateTask(toDoTask: ToDoTask): TaskInteractorResult {
+        return runCatching {
             val isValid = validateTaskFieldsUseCase(toDoTask)
-            if (isValid)
+            if (isValid) {
                 repository.updateTask(toDoTask)
+                TaskInteractorResult.AddTaskSuccessfully
+            } else {
+                TaskInteractorResult.InvalidFieldError
+            }
         }.getOrElse { throwable ->
             Log.i("RepositoryError", "${throwable.message}", throwable)
+            TaskInteractorResult.GenericError
         }
     }
 
     //TODO "Modificar o retorno para ficar padronizado como o de adicionar e pegar tasks"
-    override suspend fun deleteTask(toDoTask: ToDoTask) {
-        runCatching {
+    override suspend fun deleteTask(toDoTask: ToDoTask): TaskInteractorResult {
+        return runCatching {
             repository.deleteTask(toDoTask)
+            TaskInteractorResult.DeleteTaskSuccessfully
         }.getOrElse { throwable ->
             Log.i("RepositoryError", "${throwable.message}", throwable)
+            TaskInteractorResult.GenericError
         }
     }
 

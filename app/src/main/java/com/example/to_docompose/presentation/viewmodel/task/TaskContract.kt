@@ -29,6 +29,9 @@ object TaskContract {
 
     interface Effect : UiEffect {
         object NavigateToListScreen : Effect
+
+        object ShowFieldErrorMessage : Effect
+        object ShowGenericErrorMessage : Effect
     }
 
     data class State(

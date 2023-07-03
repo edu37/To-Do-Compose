@@ -21,15 +21,19 @@ class TaskViewModel @Inject constructor(
                 is TaskContract.Event.GetTask -> {
                     getTask(event.taskId)
                 }
+
                 is TaskContract.Event.GoBackScreen -> {
                     goBackScreen()
                 }
+
                 is TaskContract.Event.AddTask -> {
                     addTask(event.toDoTask)
                 }
+
                 is TaskContract.Event.UpdateTask -> {
                     updateTask(event.toDoTask)
                 }
+
                 is TaskContract.Event.DeleteTask -> {
                     deleteTask(event.toDoTask)
                 }
@@ -52,9 +56,11 @@ class TaskViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is TaskInteractorResult.GenericError -> {
 
                 }
+
                 else -> {}
             }
         }
@@ -65,19 +71,42 @@ class TaskViewModel @Inject constructor(
             is TaskInteractorResult.AddTaskSuccessfully -> {
                 goBackScreen()
             }
+
             is TaskInteractorResult.InvalidFieldError -> {
 
             }
+
             is TaskInteractorResult.GenericError -> {
 
             }
+
             else -> {}
         }
     }
 
     private suspend fun updateTask(toDoTask: ToDoTask) {
-        interactor.updateTask(toDoTask)
-        goBackScreen()
+        when (interactor.updateTask(toDoTask)) {
+            is TaskInteractorResult.AddTaskSuccessfully -> {
+                goBackScreen()
+            }
+
+            is TaskInteractorResult.InvalidFieldError -> {
+                showErrorMessage(true)
+            }
+
+            is TaskInteractorResult.GenericError -> {
+                showErrorMessage()
+            }
+
+            else -> {}
+        }
+    }
+
+    private fun showErrorMessage(isFieldInvalid: Boolean = false) {
+        if (isFieldInvalid)
+            setEffect { TaskContract.Effect.ShowFieldErrorMessage }
+        else
+            setEffect { TaskContract.Effect.ShowGenericErrorMessage }
     }
 
     private suspend fun deleteTask(toDoTask: ToDoTask) {
