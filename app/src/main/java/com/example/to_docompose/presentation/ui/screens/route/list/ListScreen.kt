@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,6 +32,7 @@ import com.example.to_docompose.presentation.ui.components.fab.ListScreenFloatin
 import com.example.to_docompose.presentation.ui.components.item.TaskItem
 import com.example.to_docompose.presentation.ui.components.toolbar.ListScreenTopBar
 import com.example.to_docompose.presentation.ui.theme.MediumGray
+import com.example.to_docompose.presentation.viewmodel.list.ListContract
 import com.example.to_docompose.util.TestTags
 import com.example.to_docompose.presentation.viewmodel.list.ListContract as Contract
 
@@ -37,10 +40,12 @@ import com.example.to_docompose.presentation.viewmodel.list.ListContract as Cont
 fun ListScreen(
     taskList: List<ToDoTask>,
     isLoading: Boolean,
-    sendEvent: (Contract.Event) -> Unit
+    sendEvent: (ListContract.Event) -> Unit,
+    scaffoldState: ScaffoldState
 ) {
 
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             ListScreenTopBar(
                 sendEvent = sendEvent
@@ -152,7 +157,8 @@ fun ListScreenPreview() {
             )
         ),
         isLoading = false,
-        sendEvent = {}
+        sendEvent = {},
+        scaffoldState = rememberScaffoldState()
     )
 }
 
@@ -162,6 +168,7 @@ fun EmptyListScreenPreview() {
     ListScreen(
         taskList = emptyList(),
         isLoading = false,
-        sendEvent = {}
+        sendEvent = {},
+        scaffoldState = rememberScaffoldState()
     )
 }

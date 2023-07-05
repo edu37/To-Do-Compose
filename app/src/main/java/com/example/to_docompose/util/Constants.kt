@@ -8,7 +8,8 @@ object Constants {
     const val TASK_SCREEN = "task/{taskId}"
     const val TASK_ARGUMENT = "taskId"
 
-    const val LIST_SCREEN = "list/{action}"
-    const val LIST_ARGUMENT = "action"
+    const val LIST_SCREEN = "list/{action}/{taskTitle}"
+    const val LIST_ARGUMENT_ACTION = "action"
+    const val LIST_ARGUMENT_TASK_TITLE = "taskTitle"
 
 }

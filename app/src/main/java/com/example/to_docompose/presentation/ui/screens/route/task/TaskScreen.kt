@@ -22,9 +22,11 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,6 +53,7 @@ const val TITLE_MAX_LENGTH = 20
 @Composable
 fun TaskScreen(
     toDoTask: ToDoTask?,
+    scaffoldState: ScaffoldState,
     sendEvent: (Contract.Event) -> Unit
 ) {
 
@@ -65,6 +68,7 @@ fun TaskScreen(
     }
 
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             TaskScreenTopBar(
                 toDoTask = toDoTask,
@@ -246,6 +250,7 @@ fun TaskScreenPreview() {
             "Jogar umas partidas de paintball com os fela",
             Priority.HIGH
         ),
+        scaffoldState = rememberScaffoldState(),
         sendEvent = {}
     )
 }

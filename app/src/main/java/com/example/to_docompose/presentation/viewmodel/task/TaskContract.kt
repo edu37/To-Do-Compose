@@ -4,6 +4,7 @@ import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.presentation.viewmodel.base.UiEffect
 import com.example.to_docompose.presentation.viewmodel.base.UiEvent
 import com.example.to_docompose.presentation.viewmodel.base.UiState
+import com.example.to_docompose.util.Action
 
 object TaskContract {
 
@@ -28,8 +29,10 @@ object TaskContract {
     }
 
     interface Effect : UiEffect {
-        object NavigateToListScreen : Effect
-
+        data class NavigateToListScreen(
+            val action: Action = Action.NoAction,
+            val taskTitle: String = ""
+        ) : Effect
         object ShowFieldErrorMessage : Effect
         object ShowGenericErrorMessage : Effect
     }
