@@ -220,6 +220,7 @@ fun SearchAppBar(
                     value = inputText.value,
                     onValueChange = {
                         inputText.value = it
+                        onSearch(inputText.value)
                     },
                     placeholder = {
                         Text(

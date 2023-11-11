@@ -13,7 +13,7 @@ class ToDoRepositoryImpl @Inject constructor(
 
     override fun getAllTasks() = toDoDao.getAllTasksRealTime()
 
-    override fun searchDatabase(searchQuery: String) = toDoDao.searchDatabase(searchQuery)
+    override fun searchDatabase(searchQuery: String) = toDoDao.searchDatabase("%$searchQuery%")
 
     override fun sortByLowPriority() = toDoDao.sortByLowPriority()
 

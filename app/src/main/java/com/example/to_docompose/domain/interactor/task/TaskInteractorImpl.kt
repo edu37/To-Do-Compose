@@ -39,7 +39,6 @@ class TaskInteractorImpl(
         }
     }
 
-    //TODO "Modificar o retorno para ficar padronizado como o de adicionar e pegar tasks"
     override suspend fun updateTask(toDoTask: ToDoTask): TaskInteractorResult {
         return runCatching {
             val isValid = validateTaskFieldsUseCase(toDoTask)
@@ -55,7 +54,6 @@ class TaskInteractorImpl(
         }
     }
 
-    //TODO "Modificar o retorno para ficar padronizado como o de adicionar e pegar tasks"
     override suspend fun deleteTask(toDoTask: ToDoTask): TaskInteractorResult {
         return runCatching {
             repository.deleteTask(toDoTask)
